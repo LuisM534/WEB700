@@ -1,0 +1,19 @@
+{
+  "name": "assigment2",
+  "version": "1.0.0",
+  "description": "assigment 2 for web",
+  "main": "a2.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisM534/WEB700.git"
+  },
+  "author": "Luis Marquez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisM534/WEB700/issues"
+  },
+  "homepage": "https://github.com/LuisM534/WEB700#readme"
+}
