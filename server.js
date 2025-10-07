@@ -20,22 +20,19 @@ const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
 
 
-
-// Serve static files (like CSS/images if needed)
 app.use(express.static('public'));
 
-// Route: GET "/"
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/home.html'));
 });
 
-// Route: GET "/about"
 
 app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/about.html'));
 });
 
-// Route: GET "/lego/sets"
+
 app.get('/lego/sets', async (req, res) => {
     try {
         const theme = req.query.theme;
@@ -51,7 +48,7 @@ app.get('/lego/sets', async (req, res) => {
     }
 });
 
-// Route: GET "/lego/sets/:set_num"
+
 app.get('/lego/sets/:set_num', async (req, res) => {
     try {
         const set = await legoData.getSetByNum(req.params.set_num);
@@ -61,12 +58,12 @@ app.get('/lego/sets/:set_num', async (req, res) => {
     }
 });
 
-// Custom 404 Page
+
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, '/views/404.html'));
 });
 
-// Initialize data and start server
+
 legoData.initialize()
     .then(() => {
         app.listen(HTTP_PORT, () => {
