@@ -20,7 +20,7 @@ const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
 
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', (req, res) => {
@@ -58,6 +58,23 @@ app.get('/lego/sets/:set_num', async (req, res) => {
     }
 });
 
+app.get('/lego/add-test', async (req, res) => {
+    const testSet = {
+      set_num: '123',
+      name: 'testSet name',
+      year: '2024',
+      theme_id: '366',
+      num_parts: '123',
+      img_url: 'https://fakeimg.pl/375x375?text=[+Lego+]'
+    };
+  
+    try {
+      await legoData.addSet(testSet);
+      res.redirect('/lego/sets');
+    } catch (err) {
+      res.status(422).send(err?.message || 'Set already exists');
+    }
+  });
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, '/views/404.html'));

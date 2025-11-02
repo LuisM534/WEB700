@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head></head>
 	<title>Lego Collection</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/theme.css">
 </head>
 
 <body>
@@ -39,9 +40,132 @@
                 <section class="bg-light text-center py-5">
                     <div class="container">
                         <h1 class="display-5 fw-bold">About</h1>
-                        <p class="lead text-muted">Everything you want to know about me - the designer & developer.</p>
+                        <p class="lead text-muted">My name is Luis Marquez, I'm a 2nd semester BTT student at seneca college
+							with an interest in software developer topics, I like playing tennis and going for walks.</p>
                     </div>
                 </section>
+				<section class="p-4 bg-white rounded-3 shadow mt-4">
+					<h2>Theme Demo</h2>
+					<p>Below are different HTML elements that will display the look of the custom CSS theme for the site.</p>
+				  
+				
+					<h3 class="mt-4">Tables</h3>
+					<div class="row g-4">
+					  <div class="col-lg-6">
+						<table class="table">
+						  <caption>Weekly Class Schedule TABLE</caption>
+						  <thead>
+							<tr>
+							  <th>Day</th>
+							  <th>Course</th>
+							  <th>Room</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr>
+							  <td rowspan="2">Monday</td>
+							  <td>WEB700</td>
+							  <td>ONLINE</td>
+							</tr>
+							<tr>
+							  <td>OSM720</td>
+							  <td>ONLINE</td>
+							</tr>
+							<tr>
+							  <td>Wednesday</td>
+							  <td colspan="2">Self-Study & Labs</td>
+							</tr>
+						  </tbody>
+						  <tfoot>
+							<tr><td colspan="3">Subject to change</td></tr>
+						  </tfoot>
+						</table>
+					  </div>
+				  
+					  <div class="col-lg-6">
+						<table class="table">
+						  <caption>Study Resources</caption>
+						  <thead>
+							<tr>
+							  <th>Type</th>
+							  <th>Link</th>
+							  <th>Description</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr>
+							  <td>Docs</td>
+							  <td><a href="https://developer.mozilla.org/">MDN Docs</a></td>
+							  <td>Best web dev documentation</td>
+							</tr>
+							<tr>
+							  <td rowspan="2">Practice</td>
+							  <td><a href="https://freecodecamp.org">FreeCodeCamp</a></td>
+							  <td>Interactive lessons</td>
+							</tr>
+							<tr>
+							  <td><a href="https://leetcode.com">LeetCode</a></td>
+							  <td>Algorithm problems</td>
+							</tr>
+						  </tbody>
+						  <tfoot>
+							<tr><td colspan="3">Always keep practicing</td></tr>
+						  </tfoot>
+						</table>
+					  </div>
+					</div>
+					<p class="mt-2">These tables show headers, body, footers, captions, and both rowspan & colspan features.</p>
+				  
+					<!-- LISTS -->
+					<h3 class="mt-5">Lists</h3>
+					<ol>
+					  <li>Finish assignments</li>
+					  <li>Study & review notes
+						<ul>
+						  <li>WEB700</li>
+						  <li>DBS710</li>
+						  <li>OPS705</li>
+						</ul>
+					  </li>
+					  <li>Go to the gym</li>
+					  <li><a href="https://myseneca.ca">Check Seneca Announcements</a></li>
+					  <li>Cook dinner</li>
+					</ol>
+					<p>This list includes both ordered and unordered list styles.</p>
+			
+					<h3 class="mt-5">Images</h3>
+					<div class="row g-3">
+					  <div class="col-6 col-md-4">
+						<img class="img-fluid rounded shadow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Lego_Color_Bricks.jpg/440px-Lego_Color_Bricks.jpg" alt="Colorful LEGO bricks">
+					  </div>
+					  <div class="col-6 col-md-4">
+						<img class="img-fluid rounded shadow" src="https://www.lego.com/cdn/cs/set/assets/bltc213676c32f629b1/5006867.png?fit=bounds&format=jpg&quality=80&width=1500&height=1500&dpr=1" alt="Red LEGO brick">
+					  </div>
+					  <div class="col-6 col-md-4">
+						<img class="img-fluid rounded shadow" src="https://www.lego.com/cdn/cs/set/assets/bltedfa8ad865cda605/5007128.jpg" alt="LEGO YELLOW brick">
+					  </div>
+					</div>
+					<p>These images show how picture components appear with the custom theme.</p>
+				  
+					<!-- AUDIO -->
+					<h3 class="mt-5">Audio</h3>
+					<audio controls class="w-100">
+					  <source src="https://pat-crawford-sdds.netlify.app/shared/winter-2025/web700/A4/sample-audio.mp3" type="audio/mpeg">
+					  <source src="https://pat-crawford-sdds.netlify.app/shared/winter-2025/web700/A4/sample-audio.ogg" type="audio/ogg">
+					  Your browser does not support the audio element.
+					</audio>
+					<p>A simple audio player example.</p>
+				  
+					<!-- VIDEO -->
+					<h3 class="mt-5">Video</h3>
+					<video controls width="100%" class="rounded shadow">
+					  <source src="https://pat-crawford-sdds.netlify.app/shared/winter-2025/web700/A4/sample-video.mp4" type="video/mp4">
+					  <source src="https://pat-crawford-sdds.netlify.app/shared/winter-2025/web700/A4/sample-video.webm" type="video/webm">
+					  Your browser does not support the video tag.
+					</video>
+					<p>This video player demonstrates theme styling for media content.</p>
+				  
+				</section>
 
 			</main>
 		</div>

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+html, body {
+  height: 100%;
+  overflow: auto;
+  background: linear-gradient(135deg, #eef2ff, #e0f7ff);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* NAVBAR (targets Bootstrap .bg-light navbar) */
+.bg-light {
+  background: linear-gradient(to right, #ffffff, #e6e9ff) !important;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Navbar brand text */
+.navbar-brand {
+  font-weight: 700;
+  color: #2a2a7a !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* Navbar links */
+.nav-link {
+  font-weight: 500;
+  color: #4a4adb !important;
+}
+.nav-link:hover {
+  color: #7f85ff !important;
+  text-decoration: underline;
+}
+
+/* Table styling — odd rows */
+table tbody tr:nth-child(odd) td {
+  background: rgba(120, 140, 255, 0.1);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: #1b1b7a;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+}
+
+/* links */
+a {
+  color: #3742fa;
+}
+a:hover {
+  color: #5f6bff;
+}
+
+/* spacing for list items */
+ol li, ul li {
+  margin-bottom: 6px;
+}
+
+/* shadow + rounded cards (your sections) */
+section {
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  padding: 20px;
+}

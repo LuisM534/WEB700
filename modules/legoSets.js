@@ -67,6 +67,36 @@ class LegoData {
             ? Promise.resolve(filtered)
             : Promise.reject(`Unable to find sets with theme containing: ${theme}`);
     }
-}
 
+
+    addSet(newSet) {
+        return new Promise((resolve, reject) => {
+            // basic guard
+            if (!newSet || !newSet.set_num) {
+                return reject("set_num is required");
+            }
+
+            const exists = this.sets.some(s => String(s.set_num) === String(newSet.set_num));
+            if (exists) {
+                return reject("Set already exists");
+            }
+
+            const themeObj = themeData.find(t => String(t.id) === String(newSet.theme_id));
+            const themeName = themeObj ? themeObj.name : "Unknown";
+
+            const setWithTheme = {
+                set_num: String(newSet.set_num),
+                name: newSet.name ?? "",
+                year: String(newSet.year ?? ""),
+                theme_id: String(newSet.theme_id ?? ""),
+                num_parts: String(newSet.num_parts ?? ""),
+                img_url: newSet.img_url ?? "",
+                theme: themeName
+            };
+
+            this.sets.push(setWithTheme);
+            resolve(); // spec: resolve with no data on success
+        });
+    }
+}
 module.exports = LegoData;
