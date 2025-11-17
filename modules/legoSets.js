@@ -9,35 +9,30 @@
 * Name: Luis Marquez Student ID:128986247 Date: 28/Sept/2025
 ********************************************************************************/
 
+const fs = require("fs");
+const path = require("path");
 
-const setData = require('../data/setData.json');
-const themeData = require('../data/themeData.json');
+const setData = require("../data/setData.json");
+const themeData = require("../data/themeData.json");
 
 class LegoData {
     constructor() {
         this.sets = [];
+        this.themes = [];
+        this.jsonPath = path.join(__dirname, "../data/setData.json");
     }
 
     initialize() {
         return new Promise((resolve, reject) => {
             try {
-                this.sets = [];
+                this.themes = [...themeData];
 
-                setData.forEach(set => {
-                    const themeObj = themeData.find(theme => theme.id == set.theme_id);
-                    const themeName = themeObj ? themeObj.name : "Unknown";
-
-                    const setWithTheme = {
-                        set_num: set.set_num,
-                        name: set.name,
-                        year: set.year,
-                        theme_id: set.theme_id,
-                        num_parts: set.num_parts,
-                        img_url: set.img_url,
-                        theme: themeName
+                this.sets = setData.map(set => {
+                    const themeObj = themeData.find(t => t.id == set.theme_id);
+                    return {
+                        ...set,
+                        theme: themeObj ? themeObj.name : "Unknown"
                     };
-
-                    this.sets.push(setWithTheme);
                 });
 
                 resolve();
@@ -59,8 +54,8 @@ class LegoData {
     }
 
     getSetsByTheme(theme) {
-        const filtered = this.sets.filter(set =>
-            set.theme.toLowerCase().includes(theme.toLowerCase())
+        const filtered = this.sets.filter(s =>
+            s.theme.toLowerCase().includes(theme.toLowerCase())
         );
 
         return filtered.length > 0
@@ -68,35 +63,77 @@ class LegoData {
             : Promise.reject(`Unable to find sets with theme containing: ${theme}`);
     }
 
-
     addSet(newSet) {
         return new Promise((resolve, reject) => {
-            // basic guard
-            if (!newSet || !newSet.set_num) {
-                return reject("set_num is required");
-            }
+            const exists = this.sets.some(
+                s => String(s.set_num) === String(newSet.set_num)
+            );
+            if (exists) return reject("Set already exists");
 
-            const exists = this.sets.some(s => String(s.set_num) === String(newSet.set_num));
-            if (exists) {
-                return reject("Set already exists");
-            }
+            const foundTheme = this.themes.find(
+                t => String(t.id) === String(newSet.theme_id)
+            );
+            const themeName = foundTheme ? foundTheme.name : "Unknown";
 
-            const themeObj = themeData.find(t => String(t.id) === String(newSet.theme_id));
-            const themeName = themeObj ? themeObj.name : "Unknown";
-
-            const setWithTheme = {
-                set_num: String(newSet.set_num),
-                name: newSet.name ?? "",
-                year: String(newSet.year ?? ""),
-                theme_id: String(newSet.theme_id ?? ""),
-                num_parts: String(newSet.num_parts ?? ""),
-                img_url: newSet.img_url ?? "",
+            const newSetObject = {
+                set_num: newSet.set_num,
+                name: newSet.name,
+                year: newSet.year,
+                theme_id: newSet.theme_id,
+                num_parts: newSet.num_parts,
+                img_url: newSet.img_url,
                 theme: themeName
             };
 
-            this.sets.push(setWithTheme);
-            resolve(); // spec: resolve with no data on success
+            this.sets.push(newSetObject);
+
+            const rawData = this.sets.map(s => ({
+                set_num: s.set_num,
+                name: s.name,
+                year: s.year,
+                theme_id: s.theme_id,
+                num_parts: s.num_parts,
+                img_url: s.img_url
+            }));
+
+            fs.writeFileSync(this.jsonPath, JSON.stringify(rawData, null, 2));
+
+            resolve();
         });
     }
+
+    deleteSetByNum(setNum) {
+        return new Promise((resolve, reject) => {
+            const index = this.sets.findIndex(s => s.set_num === setNum);
+            if (index === -1) return reject("unable to delete: set not found");
+
+            this.sets.splice(index, 1);
+
+            const rawData = this.sets.map(s => ({
+                set_num: s.set_num,
+                name: s.name,
+                year: s.year,
+                theme_id: s.theme_id,
+                num_parts: s.num_parts,
+                img_url: s.img_url
+            }));
+
+            fs.writeFileSync(this.jsonPath, JSON.stringify(rawData, null, 2));
+
+            resolve();
+        });
+    }
+
+    getAllThemes() {
+        return Promise.resolve(this.themes);
+    }
+
+    getThemeById(id) {
+        const found = this.themes.find(t => String(t.id) === String(id));
+        return found
+            ? Promise.resolve(found)
+            : Promise.reject("unable to find requested theme");
+    }
 }
+
 module.exports = LegoData;
