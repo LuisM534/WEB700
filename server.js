@@ -1,12 +1,12 @@
 /********************************************************************************
-*  WEB700 – Assignment 04
+*  WEB700 – Assignment 06
 * 
 *  I declare that this assignment is my own work in accordance with Seneca's
 *  Academic Integrity Policy:
 * 
 *  https://www.senecapolytechnic.ca/about/policies/academic-integrity-policy.html
 * 
-*  Name: Luis Marquez Student ID:128986247 Date: 02/Nov/2025
+*  Name: Luis Marquez Student ID:128986247 Date: 30/Nov/2025
 *
 *  Published URL: https://assigmentweb700-15f62ntrc-luis-projects-477819df.vercel.app
 *
