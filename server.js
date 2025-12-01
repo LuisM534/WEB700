@@ -33,38 +33,35 @@ app.get("/about", (req, res) => {
     res.render("about", { page: "/about" });
 });
 
+
 app.get("/lego/addSet", async (req, res) => {
     try {
         const themes = await legoData.getAllThemes();
         res.render("addSet", { page: "/lego/addSet", themes });
-    } catch {
-        res.status(500).send("Failed to load form");
+    } catch (err) {
+        res.status(500).render("500", { message: "Failed to load form" });
     }
 });
+
 
 app.post("/lego/addSet", async (req, res) => {
     try {
         await legoData.addSet(req.body);
         res.redirect("/lego/sets");
     } catch (err) {
-        res.status(422).send(err);
+        res.status(500).render("500", { message: err });
     }
 });
+
 
 app.get("/lego/sets", async (req, res) => {
     try {
         let sets = await legoData.getAllSets();
-        const themes = await legoData.getAllThemes();
 
-        const themeMap = new Map(themes.map(t => [String(t.id), t.name]));
-        sets = sets.map(s => ({
-            ...s,
-            theme: themeMap.get(String(s.theme_id)) || "Unknown"
-        }));
-
+        // Filter by theme
         if (req.query.theme) {
             const q = req.query.theme.toLowerCase();
-            sets = sets.filter(s => s.theme.toLowerCase() === q);
+            sets = sets.filter(s => s.Theme.name.toLowerCase() === q);
         }
 
         res.render("sets", {
@@ -73,33 +70,32 @@ app.get("/lego/sets", async (req, res) => {
             quickThemes: ["technic", "city", "star wars", "classic town"]
         });
     } catch (err) {
-        res.status(500).send(String(err));
+        res.status(500).render("500", { message: err });
     }
 });
 
 app.get("/lego/sets/:set_num", async (req, res) => {
     try {
         const set = await legoData.getSetByNum(req.params.set_num);
-        const theme = await legoData.getThemeById(set.theme_id);
-        const fullSet = { ...set, theme: theme.name };
-        res.render("set", { page: "", set: fullSet });
-    } catch {
-        res.status(404).render("404", { page: "" });
+        res.render("set", { page: "", set });
+    } catch (err) {
+        res.status(404).render("404", { message: err });
     }
 });
+
 
 app.get("/lego/deleteSet/:set_num", async (req, res) => {
     try {
         await legoData.deleteSetByNum(req.params.set_num);
         res.redirect("/lego/sets");
     } catch (err) {
-        res.status(404).send(err);
+        res.status(500).render("500", { message: err });
     }
 });
 
-// 404
+
 app.use((req, res) => {
-    res.status(404).render("404", { page: "" });
+    res.status(404).render("404", { message: "Page not found" });
 });
 
 legoData.initialize().then(() => {
